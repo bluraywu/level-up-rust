@@ -1,5 +1,9 @@
-fn info(a: &T) {
-    todo!();
+use std::ffi::CString;
+use std::fmt::{Debug};
+use std::path::Path;
+
+fn info<T: Debug + ?Sized>(a: &T) {
+    println!("{:?}", a)
 }
 
 fn main() {
@@ -8,16 +12,13 @@ fn main() {
     info(&a);
     info(&b);
 
-    // Advanced 1
-    // use std::ffi::CString;
-    
-    // let c = CString::new("?").unwrap();
-    // info(&input);
+    //Advanced 1
+    let input = CString::new("?").unwrap();
+    info(&input);
 
-    // Advanced 2
-    // use std::path::Path;
-    // let d = Path::new("/tmp/linkedin-learning");
-    // info(d);
+    //Advanced 2
+    let d = Path::new("/tmp/linkedin-learning");
+    info(d);
 }
 
 
