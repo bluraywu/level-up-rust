@@ -1,3 +1,5 @@
+use crate::Pulse::{Long, Short};
+
 #[derive(Debug, PartialEq)]
 enum Pulse {
     Short,
@@ -12,6 +14,27 @@ type Message = Vec<Letter>;
 
 trait MorseCode {
     fn to_morse_code(&self) -> Message;
+}
+
+impl MorseCode for String {
+    fn to_morse_code(&self) -> Message {
+        let mut message = Message::new();
+        for c in self.chars() {
+            let letter = match c {
+                'A' | 'a' => vec![Long, Short],
+                'H' | 'h' => vec![Short, Short, Short, Short],
+                'E' | 'e' => vec![Short],
+                'L' | 'l' => vec![Short, Long, Short, Short],
+                'O' | 'o' => vec![Long, Long, Long],
+                'W' | 'w' => vec![Short, Long, Long],
+                'R' | 'r' => vec![Short, Long, Short],
+                'D' | 'd' => vec![Long, Short, Short],
+                _ => continue
+            };
+            message.push(letter);
+        }
+        message
+    }
 }
 
 impl std::fmt::Display for Pulse {
@@ -37,19 +60,10 @@ fn main() {
     let greeting = "Hello, world"
         .to_string()
         .to_morse_code();
-    
+
     print_morse_code(&greeting);
 }
 
-
-impl std::fmt::Display for Pulse {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            Self::Short => write!(f, "."), 
-            Self::Long => write!(f, "_"),
-        }
-    }
-}
 
 #[test]
 fn hello_world() {
