@@ -32,21 +32,21 @@ impl Hand {
     }
 
     fn value(&self) -> usize {
-        // TODO: implement this method
+        use Card::*;
         let mut value = 0;
         let mut ace_seen = 0;
         for card in &self.cards {
             value += match card {
-                Card::Two => 2,
-                Card::Three => 3,
-                Card::Four => 4,
-                Card::Five => 5,
-                Card::Six => 6,
-                Card::Seven => 7,
-                Card::Eight => 8,
-                Card::Nine => 9,
-                Card::Jack | Card::Queen | Card::King => 10,
-                Card::Ace => {
+                Two => 2,
+                Three => 3,
+                Four => 4,
+                Five => 5,
+                Six => 6,
+                Seven => 7,
+                Eight => 8,
+                Nine => 9,
+                Jack | Queen | King => 10,
+                Ace => {
                     ace_seen += 1;
                     0
                 }
