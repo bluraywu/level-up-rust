@@ -33,7 +33,33 @@ impl Hand {
 
     fn value(&self) -> usize {
         // TODO: implement this method
-        0 
+        let mut value = 0;
+        let mut ace_seen = 0;
+        for card in &self.cards {
+            value += match card {
+                Card::Two => 2,
+                Card::Three => 3,
+                Card::Four => 4,
+                Card::Five => 5,
+                Card::Six => 6,
+                Card::Seven => 7,
+                Card::Eight => 8,
+                Card::Nine => 9,
+                Card::Jack | Card::Queen | Card::King => 10,
+                Card::Ace => {
+                    ace_seen += 1;
+                    0
+                }
+            }
+        }
+        for _ in 0..ace_seen {
+            value += if value <= 10 {
+                11
+            } else {
+                1
+            }
+        }
+        value
     }
 
     fn is_loosing_hand(&self) -> bool {
@@ -70,7 +96,7 @@ fn risky_hand() {
     hand.add(Card::King);
     hand.add(Card::Queen);
     hand.add(Card::Ace);
-    
+
     assert_eq!(hand.value(), 21);
 }
 
@@ -80,7 +106,7 @@ fn oops() {
     hand.add(Card::King);
     hand.add(Card::Seven);
     hand.add(Card::Five);
-    
+
     assert!(hand.is_loosing_hand());
     assert_eq!(hand.value(), 22);
 }
