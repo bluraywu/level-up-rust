@@ -13,10 +13,6 @@ enum MyError {
 }
 
 impl FromStr for Isbn {
-    // TODO: replace with appropriate type
-    //too long
-    //too short
-    //failed checksum
     type Err = MyError;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
