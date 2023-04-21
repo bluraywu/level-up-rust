@@ -113,6 +113,6 @@ fn no_leading_hash() {
 #[test]
 #[should_panic]
 fn out_of_bounds() {
-    let _: Rgb = "00gg00".parse().unwrap();
+    let _: Rgb = "#00gg00".parse().unwrap();
 }
 
