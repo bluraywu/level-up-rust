@@ -1,4 +1,6 @@
+use std::fs::{File, OpenOptions};
 use std::path;
+use std::path::Path;
 
 trait FileMetadata {
     fn exists(&self) -> bool;
@@ -8,17 +10,17 @@ trait FileMetadata {
     fn is_readable(&self) -> bool;
 }
 
-impl FileMetadata for path::Path {
-    fn is_readable(&self) -> bool {
-        todo!();
+impl FileMetadata for Path {
+    fn exists(&self) -> bool {
+        self.exists()
     }
 
     fn is_writeable(&self) -> bool {
-        todo!();
+        OpenOptions::new().write(true).open(self).is_ok()
     }
 
-    fn exists(&self) -> bool {
-        todo!();
+    fn is_readable(&self) -> bool {
+        OpenOptions::new().read(true).open(self).is_ok()
     }
 }
 
