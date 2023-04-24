@@ -1,9 +1,21 @@
-use chrono::NaiveDate;
+use chrono::{NaiveDate};
 
 /// Parses a string that represents a date. When a date
 /// is unable to be determined, return `None`. 
 fn flexible_date_parse(text: &str) -> Option<NaiveDate> {
-    todo!();
+    if let Ok(result) = NaiveDate::parse_from_str(text, "%Y-%m-%d"){
+        return Some(result);
+    }
+    if let Ok(result) = NaiveDate::parse_from_str(text, "%Y/%b/%d"){
+        return Some(result);
+    }
+    if let Ok(result) = NaiveDate::parse_from_str(text, "%d.%b.%Y"){
+        return Some(result);
+    }
+    if let Ok(result) = NaiveDate::parse_from_str(text, "%b.%d.%Y"){
+        return Some(result);
+    }
+    None
 }
 
 fn main() {
@@ -18,7 +30,6 @@ fn main() {
     for d in dates.iter() {
         println!("{} -> {:?}", d, flexible_date_parse(d));
     }
-
 }
 
 #[test]
